@@ -20,3 +20,6 @@ venv.bak/
 # Storage
 *.csv
 *.xlsx
+
+# Packages files
+*.egg-info
