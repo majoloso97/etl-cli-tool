@@ -17,7 +17,6 @@ def get_global_settings():
         config.read(f'{CONFIG_PATH}{CONFIG_FILE}')
         if len(config.sections()) == 0:
             raise RuntimeError('No available settings')
-        settings = config['DEFAULT']
 
     except Exception:
         # Create .ini file with default values if it doesn't exist
@@ -29,13 +28,12 @@ def get_global_settings():
         config['DEFAULT']['DB_USER'] = 'user'
         config['DEFAULT']['DB_PASS'] = 'root'
         config['DEFAULT']['DB_NAME'] = 'etl_db'
-        settings = config['DEFAULT']
 
         if not os.path.exists(CONFIG_PATH):
             os.makedirs(CONFIG_PATH)
         write_settings(config)
 
-    return settings
+    return config['DEFAULT']
 
 
 def set_global_settings(**kwargs):
