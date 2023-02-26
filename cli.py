@@ -1,5 +1,5 @@
 import click
-from src.main import hello_world
+from src.main import run
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
@@ -9,7 +9,4 @@ def cli():
     pass
 
 
-@cli.command()
-def hello():
-    '''Test functionality of CLI setup'''
-    hello_world()
+cli.add_command(run)
