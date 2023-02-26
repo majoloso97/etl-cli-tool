@@ -4,7 +4,7 @@ import logging
 log = logging.getLogger('root')
 
 
-class AbstractLoader(ABC):
+class AbstractExtractor(ABC):
     COLUMNS = {'symboling', 'normalized-losses', 'make', 'fuel-type',
                'aspiration', 'num-of-doors', 'body-style', 'drive-wheels',
                'engine-location', 'wheel-base', 'length', 'width',

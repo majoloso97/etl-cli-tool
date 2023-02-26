@@ -10,4 +10,3 @@ class CsvExtractor(AbstractExtractor):
         self.build_log(log.info, 'extracting', filename)
         self.df = pd.read_csv(filename)
         self.validate_columns(self.df)
-        print(self.valid_df.head())
