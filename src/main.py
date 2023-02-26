@@ -1,6 +1,6 @@
 import click
 from .logging.logger import setup_logger
-from .utils.extractors.factory import extractor_factory
+from .etl.extractors.factory import extractor_factory
 
 log = setup_logger('root')
 
