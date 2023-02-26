@@ -1,14 +1,20 @@
 import logging
 
 
-def setup_logger(name):
+def setup_logger(name, type):
     template = '[%(asctime)s] %(feature)s | %(levelname)s: %(message)s'
     formatter = logging.Formatter(fmt=template)
 
-    handler = logging.StreamHandler()
-    handler.setFormatter(formatter)
-
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
-    logger.addHandler(handler)
+
+    terminal_handler = logging.StreamHandler()
+    terminal_handler.setFormatter(formatter)
+    logger.addHandler(terminal_handler)
+
+    if type == 'L':
+        file_handler = logging.FileHandler(filename='etl_logs.log')
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
+
     return logger
