@@ -46,6 +46,7 @@ def run(origin, filepath):
     except Exception:
         return
 
+
 # Define CONFIG command
 @click.command()
 @click.option('--log-type', 'log_type', default=init_log_type,
