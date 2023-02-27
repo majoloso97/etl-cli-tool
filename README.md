@@ -27,6 +27,15 @@ This application logic of the project is divided according to the logical steps 
 
 - Pipeline: The Pipeline class not only applies transformations. It was  built to manage the complete ETL process. Thus, it uses the Extractor classes to get data, apply the Transformer functions (that can be ensembled in different fashions as needed) to the data, and load it to the database using the Loader class.
 
+## Running the project
+### CLI Usage
+Once installed, the ETL CLI tool can be used from a terminal by invoking the `etl` command. General information of the tool and the commands can be obtained by running `etl -h`.
+
+From the help command, you can see the tool has three commands. you can access the help information from any of them by adding the -h flag when running the command:
+- `etl show`: Show the current settings of the tool
+- `etl config`: Adjust the tool settings
+- `etl run`: Runs the ETL with data from the provided source
+
 ## Author
 **Marvin López Osorio**
 
