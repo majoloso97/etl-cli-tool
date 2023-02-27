@@ -6,7 +6,7 @@ Data Engineer Assessment project for NicaSource: Highly flexible ETL CLI tool to
 ## Project description
 This project consists in a CLI tool that runs a data pipeline designed to import Car Sales data from a CSV file into a MySQL database where the data would persist. 
 
-The project is structured as a Python package intended for local use, and not intened for public use. This decision was made under the consideration that the tool would be used by the author (me) and potential team members under a controlled environment such as local development, connected to a remote database, production servers that would need to carry on the ELT tasks periodically or on other systems we might have control of. 
+The project is structured as a Python package intended for local use, and not intended for public use. This decision was made under the consideration that the tool would be used by the author (me) and potential team members under a controlled environment such as local development, connected to a remote database, production servers that would need to carry on the ELT tasks periodically or on other systems we might have control of. 
 
 
 ## Project structure
