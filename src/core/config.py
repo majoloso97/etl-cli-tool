@@ -10,10 +10,14 @@ def write_settings(settings):
         configfile.write(settings)
 
 
+def read_settings():
+    with open(f'{CONFIG_PATH}{CONFIG_FILE}', 'r') as configfile:
+        return json.load(configfile)
+
 def get_global_settings():
     try:
         # Read settings from .json file
-        settings = json.loads(f'{CONFIG_PATH}{CONFIG_FILE}')
+        settings = read_settings()
         if len(settings.keys()) == 0:
             raise RuntimeError('No available settings')
 
@@ -39,7 +43,7 @@ def set_global_settings(**kwargs):
     settings = get_global_settings()
 
     for key in kwargs.keys():
-         settings[key ]= kwargs[key]
+         settings[key]= kwargs[key]
 
     write_settings(json.dumps(settings))
     return settings
