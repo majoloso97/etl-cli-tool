@@ -28,6 +28,21 @@ This application logic of the project is divided according to the logical steps 
 - Pipeline: The Pipeline class not only applies transformations. It was  built to manage the complete ETL process. Thus, it uses the Extractor classes to get data, apply the Transformer functions (that can be ensembled in different fashions as needed) to the data, and load it to the database using the Loader class.
 
 ## Running the project
+The following steps show how this CLI should be installed and used for testing the functionality locally, or even for production use.
+### Tools for local testing
+To simulate a production environment, a `docker-compose` file was provided to start a MySQL instance locally. In case you already have a MySQL server, you can ignore this step.
+
+The `docker-compose` makes sure that a database is available to simulate the loading phase of the ETL process, and sets up default permissions that are also used by the CLI tool when installed. Follow these steps to build the docker image:
+
+- Make sure to have Docker and docker-compose installed and running on your computer. If you don't, you can install it from the [official site](https://www.docker.com/products/docker-desktop/) and launch Docker Destkop.
+- Open a new terminal and cd to the repository folder in your machine.  
+- In the terminal, run `docker-compose up --build`. This will create an image for the project, and also the database image. 
+- To test if the database is running, you can use the following credentials using a database management tool like MySQL Workbench:
+    - Username: `user`
+    - Password: `admin`
+    - Host: `127.0.0.1`
+    - Port: `3306`
+    - Database name: `etl_db`
 ### CLI Usage
 Once installed, the ETL CLI tool can be used from a terminal by invoking the `etl` command. General information of the tool and the commands can be obtained by running `etl -h`.
 
