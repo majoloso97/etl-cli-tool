@@ -30,7 +30,7 @@ def get_global_settings():
         settings['DB_HOST'] = '127.0.0.1'
         settings['DB_PORT'] = '3306'
         settings['DB_USER'] = 'user'
-        settings['DB_PASS'] = 'root'
+        settings['DB_PASS'] = 'admin'
         settings['DB_NAME'] = 'etl_db'
 
         if not os.path.exists(CONFIG_PATH):

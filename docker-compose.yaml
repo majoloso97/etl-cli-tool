@@ -1,0 +1,19 @@
+version: '3.4'
+services:
+  ns_assessment_db:
+    image: mysql:8.0
+    container_name: ns_assessment_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: etl_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: admin
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - ns_assessment_db:/var/lib/mysql
+volumes:
+  ns_assessment_db:
