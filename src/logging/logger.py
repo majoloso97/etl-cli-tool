@@ -1,4 +1,5 @@
 import logging
+from .db_logger import DBHandler
 
 
 def setup_logger(name, type):
@@ -16,5 +17,9 @@ def setup_logger(name, type):
         file_handler = logging.FileHandler(filename='etl_logs.log')
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
+
+    if type == 'D':
+        db_handler = DBHandler()
+        logger.addHandler(db_handler)
 
     return logger
