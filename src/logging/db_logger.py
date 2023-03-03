@@ -3,7 +3,7 @@ from ..core.models import Log
 from ..core.db import DbService
 
 
-class DBHandler(logging.Handler):
+class DbHandler(logging.Handler):
     def __init__(self):
         super().__init__()
 
