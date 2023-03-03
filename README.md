@@ -4,7 +4,9 @@ Data Engineer Assessment project for NicaSource: Highly flexible ETL CLI tool to
 [![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/) [![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/) [![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://www.github.com/) 
 
 ## Project description
-This project consists in a CLI tool that runs a data pipeline designed to import Car Sales data from a CSV file into a MySQL database where the data would persist. 
+This project consists in a CLI tool that runs a data pipeline designed to import Superstore Sales data from a CSV file into a MySQL database where the data would persist. 
+
+The dataset for setting up schemas was taken from [Kaggle](https://www.kaggle.com/datasets/rohitsahoo/sales-forecasting). A first exploration phase was done to check the shape of the data and needed transformations (see `data_exploration.ipynb` file in the repository).
 
 The project is structured as a Python package intended for local use, and not intended for public use. This decision was made under the consideration that the tool would be used by the author (me) and potential team members under a controlled environment such as local development, connected to a remote database, production servers that would need to carry on the ELT tasks periodically or on other systems we might have control of. 
 
