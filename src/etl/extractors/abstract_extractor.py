@@ -13,7 +13,7 @@ class AbstractExtractor(ABC):
 
     MESSAGES = {
         'extracting': 'Extracting data from {}',
-        'cols_not_matching': 'Not all columns of the origin file match the expected schema.',
+        'cols_not_matching': 'Not all columns of the origin file match the expected schema. Dropping unexpected columns.',
         'cols_matched': 'All columns of the origin file match the expected schema.',
         'origin_type_verified': 'The data source {} was verified as a {}',
         'wrong_origin': 'The data source {} is not a {}'
