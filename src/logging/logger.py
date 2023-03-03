@@ -1,5 +1,5 @@
 import logging
-from .db_logger import DBHandler
+from .db_logger import DbHandler
 
 
 def setup_logger(name, type):
@@ -19,7 +19,7 @@ def setup_logger(name, type):
         logger.addHandler(file_handler)
 
     if type == 'D':
-        db_handler = DBHandler()
+        db_handler = DbHandler()
         logger.addHandler(db_handler)
 
     return logger
