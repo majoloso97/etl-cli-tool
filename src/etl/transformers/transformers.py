@@ -29,14 +29,14 @@ def standardize_column_names(data: pd.DataFrame):
 
 def drop_index_column(data: pd.DataFrame):
     '''Drops the Row ID (row_id) column from the
-    dataframe. It's purpuse can be replaced with the 
+    dataframe. It's purpuse can be replaced with the
     database ID, which will apply to all pipeline runs'''
     return data.drop(columns='row_id')
 
 
 def drop_rows_with_missing_values(data: pd.DataFrame):
     '''Drop all rows with any missing value. For this
-    scenario, it's considered that rows with just a single 
+    scenario, it's considered that rows with just a single
     missing value in the record should be removed. Could
     be adjusted later according to business needs.'''
     return data.dropna()
