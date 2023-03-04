@@ -1,7 +1,7 @@
 import click
 from .logging.logger import setup_logger
-from .etl.extractors.factory import extractor_factory
 from .core.config import get_global_settings, set_global_settings
+from .etl.pipeline.worker import run_pipeline
 
 # CLI options for setting log output and database auth method
 config_log_options = ['C', 'L', 'D']
@@ -40,11 +40,8 @@ def run(origin, filepath):
 
     FILEPATH = Path to the file to be used to pull data from. Must match --origin type.
     '''
-    try:
-        loader = extractor_factory(origin)
-        loader.import_data(filepath)
-    except Exception:
-        return
+    run_pipeline(origin_type=origin,
+                 origin_path=filepath)
 
 
 # Define CONFIG command
