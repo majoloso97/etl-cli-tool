@@ -1,6 +1,8 @@
 import logging
 from typing import List, Callable
 from ..extractors.abstract_extractor import AbstractExtractor
+from ..loader.loader import Loader
+
 
 log = logging.getLogger('root')
 
@@ -8,30 +10,33 @@ log = logging.getLogger('root')
 class Pipeline():
     def __init__(self,
                  extractor: AbstractExtractor,
-                 loader,
-                 *args: List[Callable]):
+                 extraction_origin_path: str,
+                 transformations: List[Callable]):
         self.extractor = extractor
-        self.transformations = [args]
-        self.loader = loader
+        self.extraction_origin_path = extraction_origin_path
+        self.transformations = transformations
 
-    def log(self, level, message):
-        extra = {'feature': 'PIPELINE MANAGER'}
-        log.log(level=level, msg=message, extra=extra)
+    def build_log(self, logger, message):
+        extra = {'feature': 'PIPELINE'}
+        logger(msg=message, extra=extra)
 
     def extract(self):
-        pass
+        self.extractor.import_data(self.extraction_origin_path)
+        self.data = self.extractor.valid_df
 
     def transform(self):
-        pass
+        for transformation in self.transformations:
+            self.data = transformation(self.data)
 
     def load(self):
-        pass
+        loader_instance = Loader(self.data)
+        loader_instance.load_data()
 
     def run(self):
-        self.log(logging.INFO, "Starting extraction process")
+        self.build_log(log.info, "Starting extraction process")
         self.extract()
-        self.log(logging.INFO, "Starting to apply defined transformations")
+        self.build_log(log.info, "Starting to apply defined transformations")
         self.transform()
-        self.log(logging.INFO, "Starting to load data to database")
+        self.build_log(log.info, "Starting to load data to database")
         self.load()
-        self.log(logging.INFO, "ETL ran sucessfully")
+        self.build_log(log.info, "ETL ran sucessfully")
