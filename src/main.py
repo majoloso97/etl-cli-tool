@@ -64,7 +64,8 @@ def config(log_type, db_auth):
              extra={'feature': 'CLI CONFIG'})
     if db_auth == 'E':
         read_db_settings_from_env(log_type, db_auth)
-    read_db_settings_from_input(log_type, db_auth)
+    else:
+        read_db_settings_from_input(log_type, db_auth)
 
 
 # Define SHOW command
