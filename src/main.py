@@ -1,11 +1,13 @@
 import click
 from .logging.logger import setup_logger
-from .core.config import get_global_settings, set_global_settings
+from .core.config import (get_global_settings,
+                          read_db_settings_from_env,
+                          read_db_settings_from_input)
 from .etl.pipeline.worker import run_pipeline
 
 # CLI options for setting log output and database auth method
-config_log_options = ['C', 'L', 'D']
-config_db_options = ['E', 'P']
+config_log_options = {'C': 'Console', 'L': 'Logfile', 'D': 'Database'}
+config_db_options = {'E': 'Environment variables', 'P': 'User Prompt'}
 
 # Help text for CLI
 log_help = '''Controls the output of logs. Choose from either
@@ -47,13 +49,22 @@ def run(origin, filepath):
 # Define CONFIG command
 @click.command()
 @click.option('--log-type', 'log_type', default=init_log_type,
-              type=click.Choice(config_log_options), help=log_help)
+              type=click.Choice(config_log_options.keys(),
+                                case_sensitive=False),
+              help=log_help)
 @click.option('--db-auth', 'db_auth', default=init_db_auth,
-              type=click.Choice(config_db_options), help=db_help)
+              type=click.Choice(config_db_options.keys(),
+                                case_sensitive=False),
+              help=db_help)
 def config(log_type, db_auth):
     '''Change log-type and db-auth settings for the ETL CLI tool'''
-    print(log_type)
-    set_global_settings(LOG_TYPE=log_type, DB_AUTH=db_auth)
+    log.info(f'Log type set to {config_log_options[log_type]} [{log_type}].',
+             extra={'feature': 'CLI CONFIG'})
+    log.info(f'Db Auth set to {config_db_options[db_auth]} [{db_auth}].',
+             extra={'feature': 'CLI CONFIG'})
+    if db_auth == 'E':
+        read_db_settings_from_env(log_type, db_auth)
+    read_db_settings_from_input(log_type, db_auth)
 
 
 # Define SHOW command
