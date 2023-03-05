@@ -52,11 +52,11 @@ def set_global_settings(**kwargs):
 
 
 def read_db_settings_from_env(log_type, db_auth):
-    db_host = os.getenv(['DB_HOST'], '127.0.0.1')
-    db_port = os.getenv(['DB_PORT'], '3306')
-    db_user = os.getenv(['DB_USER'], 'user')
-    db_pass = os.getenv(['DB_PASS'], 'admin')
-    db_name = os.getenv(['DB_NAME'], 'etl_db')
+    db_host = os.getenv('DB_HOST', '127.0.0.1')
+    db_port = os.getenv('DB_PORT', '3306')
+    db_user = os.getenv('DB_USER', 'user')
+    db_pass = os.getenv('DB_PASS', 'admin')
+    db_name = os.getenv('DB_NAME', 'etl_db')
     set_global_settings(LOG_TYPE=log_type,
                         DB_AUTH=db_auth,
                         DB_HOST=db_host,
