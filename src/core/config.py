@@ -68,11 +68,11 @@ def read_db_settings_from_env(log_type, db_auth):
 
 def read_db_settings_from_input(log_type, db_auth):
     curr = get_global_settings()
-    host = input(f'Database Host (or Enter to use {curr["DB_HOST"]}): ')
-    port = input(f'Database Port (or Enter to use {curr["DB_PORT"]}): ')
-    user = input(f'Database Username (or Enter to use {curr["DB_USER"]}): ')
+    host = input(f'Database Host (or Enter to use <{curr["DB_HOST"]}>): ')
+    port = input(f'Database Port (or Enter to use <{curr["DB_PORT"]}>): ')
+    user = input(f'Database Username (or Enter to use <{curr["DB_USER"]}>): ')
     passwrd = getpass.getpass(f'Database Password (or Enter to use existing): ')
-    name = input(f'Database Name (or Enter to use {curr["DB_NAME"]}): ')
+    name = input(f'Database Name (or Enter to use <{curr["DB_NAME"]}>): ')
 
     db_host = host if host else curr['DB_HOST']
     db_port = port if port else curr['DB_PORT']
