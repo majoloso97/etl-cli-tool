@@ -16,15 +16,15 @@ def initialize_cli():
             log.critical("Can't reach database server.\n \
                          Defaulting log-type to Console [C].\n \
                          Use etl config to check database credentials.",
-                            extra={'feature': 'CLI CONFIG'})
+                            extra={'feature': 'CLI START'})
         else:
             log = setup_logger('root', init_log_type)
             log.critical("Can't reach database server.\n \
                          Use etl config to check database credentials.",
-                            extra={'feature': 'CLI CONFIG'})
+                            extra={'feature': 'CLI START'})
     else:
         log = setup_logger('root', init_log_type)
         log.info(f'Connection with database established.',
-                 extra={'feature': 'CLI CONFIG'})
+                 extra={'feature': 'CLI START'})
     
     return settings, db.is_active
