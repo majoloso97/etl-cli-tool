@@ -48,16 +48,18 @@ def run(origin, filepath):
 
 # Define CONFIG command
 @click.command()
-@click.option('--log-type', 'log_type', default=init_log_type,
+@click.option('--log-type', 'user_log_type', default=init_log_type,
               type=click.Choice(config_log_options.keys(),
                                 case_sensitive=False),
               help=log_help)
-@click.option('--db-auth', 'db_auth', default=init_db_auth,
+@click.option('--db-auth', 'user_db_auth', default=init_db_auth,
               type=click.Choice(config_db_options.keys(),
                                 case_sensitive=False),
               help=db_help)
-def config(log_type, db_auth):
+def config(user_log_type, user_db_auth):
     '''Change log-type and db-auth settings for the ETL CLI tool'''
+    log_type = user_log_type.upper()
+    db_auth = user_db_auth.upper()
     log.info(f'Log type set to {config_log_options[log_type]} [{log_type}].',
              extra={'feature': 'CLI CONFIG'})
     log.info(f'Db Auth set to {config_db_options[db_auth]} [{db_auth}].',
