@@ -1,6 +1,6 @@
 import logging
-from ..core.models import Log
-from ..core.db import DbService
+from ..models import Log
+from ..db import DbService
 
 
 class DbHandler(logging.Handler):
