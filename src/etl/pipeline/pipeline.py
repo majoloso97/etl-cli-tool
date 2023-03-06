@@ -36,10 +36,21 @@ class Pipeline():
         try:
             self.build_log(log.info, "Starting extraction process")
             self.extract()
+        except Exception:
+            self.build_log(log.critical, "ETL can't extract data. Check previous logs for information")
+            return
+
+        try:
             self.build_log(log.info, "Starting to apply defined transformations")
             self.transform()
+        except Exception:
+            self.build_log(log.critical, "ETL can't transform data. Check previous logs for information")
+            return
+
+        try:
             self.build_log(log.info, "Starting to load data to database")
             self.load()
             self.build_log(log.info, "ETL ran sucessfully")
-        except Exception:
+        except:
             self.build_log(log.critical, "ETL can't save data. Check previous logs for information")
+            return
