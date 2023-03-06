@@ -67,6 +67,7 @@ def config(user_log_type, user_db_auth):
         set_db_settings_from_env(log_type, db_auth)
     else:
         set_db_settings_from_input(log_type, db_auth)
+    initialize_cli()
 
 
 # Define SHOW command
