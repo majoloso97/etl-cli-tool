@@ -15,6 +15,7 @@ def log_errors(func):
         except Exception as e:
             build_log(log.error,
                       f'Exception when applying {func.__name__}: {e}')
+            raise Exception
     return wrapper
 
 
