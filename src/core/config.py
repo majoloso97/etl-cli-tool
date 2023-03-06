@@ -6,7 +6,7 @@ from .logging.logger import setup_logger
 def initialize_cli():
     settings = get_global_settings()
     init_log_type = settings['LOG_TYPE']
-    
+
     # Create database service to ping db server
     db = DbService()
     if not db.is_active:
@@ -16,15 +16,15 @@ def initialize_cli():
             log.critical("Can't reach database server.\n \
                          Defaulting log-type to Console [C].\n \
                          Use etl config to check database credentials.",
-                            extra={'feature': 'CLI START'})
+                         extra={'feature': 'CLI START'})
         else:
             log = setup_logger('root', init_log_type)
             log.critical("Can't reach database server.\n \
                          Use etl config to check database credentials.",
-                            extra={'feature': 'CLI START'})
+                         extra={'feature': 'CLI START'})
     else:
         log = setup_logger('root', init_log_type)
-        log.info(f'Connection with database established.',
+        log.info('Connection with database established.',
                  extra={'feature': 'CLI START'})
-    
+
     return settings, db.is_active

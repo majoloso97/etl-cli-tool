@@ -28,12 +28,12 @@ class Loader:
     def load_to_db(self):
         self.build_log(log.info, 'db_connection')
         db = DbService()
-        
+
         if db.is_active:
             try:
                 self.build_log(log.info, 'saving')
                 db.bulk_save(records=self.data.to_dict(orient='records'),
-                                cls=SalesRecord)
+                             cls=SalesRecord)
                 self.build_log(log.info, 'complete')
             except Exception as e:
                 self.build_log(log.error, 'error', e)

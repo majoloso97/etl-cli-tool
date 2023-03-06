@@ -32,8 +32,7 @@ class AbstractExtractor(ABC):
         if len(self.COLUMNS) > len(existing_cols):
             self.build_log(log.error, 'missing_cols')
             raise ValueError
-            return
-        
+
         if len(df.columns) > len(self.COLUMNS):
             self.valid_df = df[existing_cols]
             self.build_log(log.warning, 'excedent_cols')

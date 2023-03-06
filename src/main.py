@@ -23,7 +23,7 @@ and [D] store logs in either a .log file in the directory where
 the ETL is run or a table in the same database the data is stored.'''
 
 
-# Get initialized CLI settings 
+# Get initialized CLI settings
 settings, active_db = initialize_cli()
 init_log_type = settings['LOG_TYPE']
 init_db_auth = settings['DB_AUTH']

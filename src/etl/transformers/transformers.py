@@ -68,7 +68,7 @@ def drop_rows_with_missing_values(data: pd.DataFrame):
     build_log(log.info,
               f'Input data contains {initial_size} rows. Looking for rows with missing values')
     data_no_missing = data.dropna()
-    
+
     final_size = data_no_missing.shape[0]
     missing = initial_size - final_size
 

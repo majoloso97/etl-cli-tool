@@ -11,6 +11,7 @@ DEFAULT_TRANSFORMATIONS = [standardize_column_names,
                            convert_date_columns_to_datetime,
                            ]
 
+
 def run_pipeline(origin_type,
                  origin_path,
                  transformations=DEFAULT_TRANSFORMATIONS):
