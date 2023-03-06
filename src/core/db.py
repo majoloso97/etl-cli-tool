@@ -1,15 +1,19 @@
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
 from sqlalchemy.orm import sessionmaker
-from .config import get_global_settings
+from .settings import get_global_settings
 from .models import Base
 
 
 class DbService:
     def __init__(self) -> None:
-        self.engine = create_engine(self.get_url())
-        Base.metadata.create_all(self.engine)
-        self.session = sessionmaker(self.engine)
+        try:
+            self.engine = create_engine(self.get_url())
+            Base.metadata.create_all(self.engine)
+            self.session = sessionmaker(self.engine)
+            self.is_active = True
+        except Exception:
+            self.is_active = False
 
     def get_url(self):
         settings = get_global_settings()
