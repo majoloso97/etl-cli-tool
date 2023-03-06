@@ -51,7 +51,7 @@ def set_global_settings(**kwargs):
     return settings
 
 
-def read_db_settings_from_env(log_type, db_auth):
+def set_db_settings_from_env(log_type, db_auth):
     db_host = os.getenv('DB_HOST', '127.0.0.1')
     db_port = os.getenv('DB_PORT', '3306')
     db_user = os.getenv('DB_USER', 'user')
@@ -66,7 +66,7 @@ def read_db_settings_from_env(log_type, db_auth):
                         DB_NAME=db_name)
 
 
-def read_db_settings_from_input(log_type, db_auth):
+def set_db_settings_from_input(log_type, db_auth):
     curr = get_global_settings()
     host = input(f'Database Host (or Enter to use <{curr["DB_HOST"]}>): ')
     port = input(f'Database Port (or Enter to use <{curr["DB_PORT"]}>): ')
