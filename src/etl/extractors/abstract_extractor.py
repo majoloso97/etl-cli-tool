@@ -13,7 +13,8 @@ class AbstractExtractor(ABC):
 
     MESSAGES = {
         'extracting': 'Extracting data from {}',
-        'cols_not_matching': 'Not all columns of the origin file match the expected schema. Dropping unexpected columns.',
+        'excedent_cols': 'Excedent columns in origin file against expected schema. Dropping excedent columns.',
+        'missing_cols': 'Missing columns in origin file against expected schema. Cannot proceed extraction.',
         'cols_matched': 'All columns of the origin file match the expected schema.',
         'origin_type_verified': 'The data source {} was verified as a {}',
         'wrong_origin': 'The data source {} is not a {}'
@@ -28,9 +29,14 @@ class AbstractExtractor(ABC):
 
     def validate_columns(self, df):
         existing_cols = set(df.columns).intersection(self.COLUMNS)
-        if self.COLUMNS != existing_cols:
+        if len(self.COLUMNS) > len(existing_cols):
+            self.build_log(log.error, 'missing_cols')
+            raise ValueError
+            return
+        
+        if len(df.columns) > len(self.COLUMNS):
             self.valid_df = df[existing_cols]
-            self.build_log(log.warning, 'cols_not_matching')
+            self.build_log(log.warning, 'excedent_cols')
             return
 
         self.valid_df = df
