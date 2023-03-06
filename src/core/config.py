@@ -24,5 +24,7 @@ def initialize_cli():
                             extra={'feature': 'CLI CONFIG'})
     else:
         log = setup_logger('root', init_log_type)
+        log.info(f'Connection with database established.',
+                 extra={'feature': 'CLI CONFIG'})
     
     return settings, db.is_active
