@@ -15,7 +15,8 @@ class Loader:
         'db_connection': 'Starting connection to Database',
         'saving': 'Bulk saving data',
         'complete': 'Save transaction is completed',
-        'error': "Data couldn't be loaded. An error occurred during the transaction: {}"
+        'error': "Data couldn't be loaded. An error occurred during the transaction: {}",
+        'not_connected': "Couln't connect to database. Records not being saved."
     }
 
     def __init__(self, data):
@@ -27,13 +28,18 @@ class Loader:
     def load_to_db(self):
         self.build_log(log.info, 'db_connection')
         db = DbService()
-        try:
-            self.build_log(log.info, 'saving')
-            db.bulk_save(records=self.data.to_dict(orient='records'),
-                            cls=SalesRecord)
-            self.build_log(log.info, 'complete')
-        except Exception as e:
-            self.build_log(log.error, 'error', e)
+        
+        if db.is_active:
+            try:
+                self.build_log(log.info, 'saving')
+                db.bulk_save(records=self.data.to_dict(orient='records'),
+                                cls=SalesRecord)
+                self.build_log(log.info, 'complete')
+            except Exception as e:
+                self.build_log(log.error, 'error', e)
+        else:
+            self.build_log(log.critical, 'not_connected')
+            raise ConnectionError
 
     def load_data(self):
         self.validate_data()

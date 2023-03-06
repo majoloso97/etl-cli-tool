@@ -14,12 +14,12 @@ DEFAULT_TRANSFORMATIONS = [standardize_column_names,
 def run_pipeline(origin_type,
                  origin_path,
                  transformations=DEFAULT_TRANSFORMATIONS):
-    # try:
+    try:
         extractor = extractor_factory(origin_type)
         pipe = Pipeline(extractor=extractor,
                         extraction_origin_path=origin_path,
                         transformations=transformations)
         pipe.run()
 
-    # except Exception:
-    #     return
+    except Exception:
+        return

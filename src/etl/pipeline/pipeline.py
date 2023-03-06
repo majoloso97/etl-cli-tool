@@ -33,10 +33,13 @@ class Pipeline():
         loader_instance.load_data()
 
     def run(self):
-        self.build_log(log.info, "Starting extraction process")
-        self.extract()
-        self.build_log(log.info, "Starting to apply defined transformations")
-        self.transform()
-        self.build_log(log.info, "Starting to load data to database")
-        self.load()
-        self.build_log(log.info, "ETL ran sucessfully")
+        try:
+            self.build_log(log.info, "Starting extraction process")
+            self.extract()
+            self.build_log(log.info, "Starting to apply defined transformations")
+            self.transform()
+            self.build_log(log.info, "Starting to load data to database")
+            self.load()
+            self.build_log(log.info, "ETL ran sucessfully")
+        except Exception:
+            self.build_log(log.critical, "ETL can't save data. Check previous logs for information")
