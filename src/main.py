@@ -1,8 +1,8 @@
 import click
-from .logging.logger import setup_logger
-from .core.config import (get_global_settings,
-                          read_db_settings_from_env,
-                          read_db_settings_from_input)
+import logging
+from .core.config import initialize_cli
+from .core.settings import (set_db_settings_from_env,
+                            set_db_settings_from_input)
 from .etl.pipeline.worker import run_pipeline
 
 # CLI options for setting log output and database auth method
@@ -22,13 +22,12 @@ of logs. Defaults to [C] for just showing logs in terminal. [L]
 and [D] store logs in either a .log file in the directory where
 the ETL is run or a table in the same database the data is stored.'''
 
-# Load (or create) current global settings
-settings = get_global_settings()
+
+# Get initialized CLI settings 
+settings, active_db = initialize_cli()
 init_log_type = settings['LOG_TYPE']
 init_db_auth = settings['DB_AUTH']
-
-# Set up logger with current configuration
-log = setup_logger('root', init_log_type)
+log = logging.getLogger('root')
 
 
 # Define RUN command
@@ -65,9 +64,9 @@ def config(user_log_type, user_db_auth):
     log.info(f'Db Auth set to {config_db_options[db_auth]} [{db_auth}].',
              extra={'feature': 'CLI CONFIG'})
     if db_auth == 'E':
-        read_db_settings_from_env(log_type, db_auth)
+        set_db_settings_from_env(log_type, db_auth)
     else:
-        read_db_settings_from_input(log_type, db_auth)
+        set_db_settings_from_input(log_type, db_auth)
 
 
 # Define SHOW command
