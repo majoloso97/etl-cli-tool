@@ -22,10 +22,7 @@ class Loader:
     def __init__(self, data):
         self.data = data
 
-    def validate_data(self):
-        pass
-
-    def load_to_db(self):
+    def load_data(self):
         self.build_log(log.info, 'db_connection')
         db = DbService()
 
@@ -40,10 +37,6 @@ class Loader:
         else:
             self.build_log(log.critical, 'not_connected')
             raise ConnectionError
-
-    def load_data(self):
-        self.validate_data()
-        self.load_to_db()
 
     def build_log(self, logger, message_key, *args):
         template = self.MESSAGES[message_key]
