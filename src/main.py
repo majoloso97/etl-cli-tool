@@ -74,7 +74,7 @@ def config(user_log_type, user_db_auth):
 @click.command()
 def show():
     '''Shows current configuration for the ETL CLI tool'''
-    log.info(f'Current log-type set to {init_log_type}',
+    log.info(f'Current log-type set to {config_log_options[init_log_type]} [{init_log_type}]',
              extra={'feature': 'CLI SHOW'})
-    log.info(f'Current db-auth set to {init_db_auth}',
+    log.info(f'Current db-auth set to {config_db_options[init_db_auth]} [{init_db_auth}]',
              extra={'feature': 'CLI SHOW'})
