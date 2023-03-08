@@ -2,6 +2,14 @@ import pandas as pd
 import logging
 
 log = logging.getLogger('root')
+DATE_COLS = ['order_date', 'ship_date']
+CATEGORICAL_COLS = {
+    "country": ['United States'],
+    "segment": ['Consumer', 'Corporate', 'Home Office'],
+    "category": ['Furniture', 'Office Supplies', 'Technology'],
+    "ship_mode": ['Second Class', 'Standard Class', 'First Class', 'Same Day'],
+    "region": ['South', 'West', 'Central', 'East']
+}
 
 
 def build_log(logger, message):
@@ -86,11 +94,47 @@ def convert_date_columns_to_datetime(data: pd.DataFrame):
     '''Columns with a date-like original value are
     converted to proper datetime objects.'''
 
-    date_cols = ['order_date', 'ship_date']
+    build_log(log.info,
+              f'Changing type of {", ".join(DATE_COLS)} to datetime.')
+
+    for col in DATE_COLS:
+        data[col] = pd.to_datetime(data[col])
+    return data
+
+
+@log_errors
+def get_year_from_datetime_cols(data: pd.DataFrame):
+    '''Extract year dimension from datetime columns.'''
 
     build_log(log.info,
-              f'Changing type of {", ".join(date_cols)} to datetime.')
+              f'Getting Year out of {", ".join(DATE_COLS)} columns.')
 
-    for col in date_cols:
-        data[col] = pd.to_datetime(data[col])
+    for col in DATE_COLS:
+        year_col = col.replace('date', 'year')
+        data[year_col] = data[col].dt.year
+    return data
+
+
+@log_errors
+def convert_categorical_cols_to_numeric(data: pd.DataFrame):
+    '''Replaces categorical values with numerical values (from 0 to n
+    categories) for columns that have low granularity (unique values < 10).
+    Values outside of the defined expected ones will get a -1 value'''
+
+    build_log(log.info,
+              f'Encoding {", ".join(CATEGORICAL_COLS.keys())} columns to numbers.')
+
+    def encoder(record, col_name, value_list):
+        '''Tool to encode the category to number based on expected
+        value list'''
+        try:
+            return value_list.index(record[col_name])
+        except ValueError:
+            return -1
+
+    for col_name, expected_values in CATEGORICAL_COLS.items():
+        data[col_name] = data.apply(encoder,
+                                    axis=1,
+                                    result_type='reduce',
+                                    args=(col_name, expected_values))
     return data
